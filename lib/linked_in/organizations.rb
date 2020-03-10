@@ -41,7 +41,7 @@ module LinkedIn
     #
     def organization_acls(options = {})
       puts "trying things out"
-      path = '/organizationalAcls?q=roleAssignee'
+      path = '/organizationAcls?q=roleAssignee'
       get(path, options)
     end
 
