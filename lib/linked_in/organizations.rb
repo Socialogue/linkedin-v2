@@ -40,7 +40,8 @@ module LinkedIn
     # @see https://developer.linkedin.com/docs/guide/v2/organizations/organization-lookup-api#acls
     #
     def organization_acls(options = {})
-      path = '/organizationalEntityAcls'
+      puts "trying things out"
+      path = '/organizationalAcls?q=roleAssignee'
       get(path, options)
     end
 
