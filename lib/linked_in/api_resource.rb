@@ -151,7 +151,7 @@ module LinkedIn
 
     def single_person_path(id=nil, url=nil)
       if id
-        return "/id=#{id}"
+        return "/(id:#{id})"
       elsif url
         return "/url=#{CGI.escape(url)}"
       else
