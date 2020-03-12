@@ -40,8 +40,12 @@ module LinkedIn
     # @see https://developer.linkedin.com/docs/guide/v2/organizations/organization-lookup-api#acls
     #
     def organization_acls(options = {})
-      puts "trying things out"
-      path = '/organizationAcls?q=roleAssignee'
+      puts "trying things out2"
+      org_acls_urn = options.delete(:org_acls_urn)
+      org_acls_admin = options.delete(:org_acls_admin)
+      q_val = org_acls_urn ? 'organization' : 'roleAssignee'
+      org_parm_part = org_acls_urn ? "&organization=#{org_acls_urn}" + (org_acls_admin ? "&role=ADMINISTRATOR&state=APPROVED" : "") : ""
+      path = "/organizationAcls?q=#{q_val}#{org_parm_part}"
       get(path, options)
     end
 
