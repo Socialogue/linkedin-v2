@@ -220,7 +220,7 @@ module LinkedIn
       if id = options.delete(:id)
         path += "/#{id}"
       elsif vanity_name = options.delete(:vanity_name)
-        path += ">q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
       elsif parent_id = options.delete(:parent_id)
         path = "/organizations?q=parentOrganization&parent=#{CGI.escape(parent_id)}"
       else
