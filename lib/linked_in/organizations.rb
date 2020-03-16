@@ -202,13 +202,13 @@ module LinkedIn
       path = '/organizations'
 
       if email_domain = options.delete(:email_domain)
-        path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}"
+        path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif id = options.delete(:id)
-        path += "/#{id}"
+        path += "/#{id}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif urn = options.delete(:urn)
-        path += "/#{urn_to_id(urn)}"
+        path += "/#{urn_to_id(urn)}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif vanity_name = options.delete(:vanity_name)
-        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       else
         path += "/me"
       end
@@ -218,11 +218,11 @@ module LinkedIn
       path = '/organizationBrands'
 
       if id = options.delete(:id)
-        path += "/#{id}"
+        path += "/#{id}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif vanity_name = options.delete(:vanity_name)
-        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif parent_id = options.delete(:parent_id)
-        path = "/organizations?q=parentOrganization&parent=#{CGI.escape(parent_id)}"
+        path = "/organizations?q=parentOrganization&parent=#{CGI.escape(parent_id)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       else
         path += "/me"
       end
