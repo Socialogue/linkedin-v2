@@ -19,6 +19,11 @@ module LinkedIn
       path = organization_path(options)
       get(path, options)
     end
+    
+    def organization_image_urls(id)
+      path = organization_image_path(id)
+      get(path, {})
+    end
 
     # Retrieve an Organization Brand
     #
@@ -33,6 +38,11 @@ module LinkedIn
     def brand(options = {})
       path = brand_path(options)
       get(path, options)
+    end
+    
+    def brand_image_urls(id)
+      path = brand_image_path(id)
+      get(path, {})
     end
 
     # Retrieve Organization Access Control informaion
@@ -122,7 +132,7 @@ module LinkedIn
     #
     # https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/organization-lookup-api#retrieve-organization-follower-count
     #
-    def organization_follower_count organization_urn
+    def organization_follower_count(organization_urn)
       path = "/networkSizes/#{organization_urn}?edgeType=CompanyFollowedByMember"
       get(path)
     end
@@ -202,30 +212,40 @@ module LinkedIn
       path = '/organizations'
 
       if email_domain = options.delete(:email_domain)
-        path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+        path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}"
       elsif id = options.delete(:id)
-        path += "/#{id}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+        path += "/#{id}"
       elsif urn = options.delete(:urn)
-        path += "/#{urn_to_id(urn)}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+        path += "/#{urn_to_id(urn)}"
       elsif vanity_name = options.delete(:vanity_name)
-        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
       else
         path += "/me"
       end
+    end
+    
+    def organization_image_path(id)
+      path = '/organizations'
+      path += "/#{id}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
     end
 
     def brand_path(options)
       path = '/organizationBrands'
 
       if id = options.delete(:id)
-        path += "/#{id}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+        path += "/#{id}"
       elsif vanity_name = options.delete(:vanity_name)
-        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
-      elsif parent_id = options.delete(:parent_id)
-        path = "/organizations?q=parentOrganization&parent=#{CGI.escape(parent_id)}&projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+      elsif parent_urn = options.delete(:parent_urn)
+        path = "/organizations?q=parentOrganization&parent=#{CGI.escape(parent_urn)}"
       else
         path += "/me"
       end
+    end
+    
+    def brand_image_path(id)
+      path = '/organizationBrands'
+      path += "/#{id}?projection=(coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"      
     end
   end
 end
