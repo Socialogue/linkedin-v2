@@ -218,7 +218,8 @@ module LinkedIn
       elsif id = options.delete(:id)
         path += "/#{id}"
       elsif id1 = options.delete(:id1)
-        path += "/#{id1}?fields=description,alternative_names,specialties,staff_count_range,localized_specialties,id,localized_description,localized_website,logo_v2,website,localized_name,founded_on,groups,organization_status,cover_photo_v2,default_locale,organization_type,industries,name,locations,$urn"
+        #path += "/#{id1}?fields=description,alternative_names,specialties,staff_count_range,localized_specialties,id,localized_description,localized_website,logo_v2,website,localized_name,founded_on,groups,organization_status,cover_photo_v2,default_locale,organization_type,industries,name,locations,$urn"
+        path += "/#{id1}?fields=description,id,localized_website,logo_v2,website,localized_name,cover_photo_v2"
       elsif urn = options.delete(:urn)
         path += "/#{urn_to_id(urn)}"
       elsif vanity_name = options.delete(:vanity_name)
