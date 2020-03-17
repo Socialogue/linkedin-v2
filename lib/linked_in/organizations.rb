@@ -207,6 +207,7 @@ module LinkedIn
 
     private ##############################################################
 
+    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "vanity_name", "website", "localized_name", "founded_on", "cover_photo", "groups", "organization_status", "version_tag", "cover_photo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
 
     def organization_path(options)
       path = '/organizations'
@@ -214,7 +215,7 @@ module LinkedIn
       if email_domain = options.delete(:email_domain)
         path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}"
       elsif id = options.delete(:id)
-        path += "/#{id}"
+        path += "/#{id}?fields=#{ORGANIZATION_FIELDS}"
       elsif urn = options.delete(:urn)
         path += "/#{urn_to_id(urn)}"
       elsif vanity_name = options.delete(:vanity_name)
