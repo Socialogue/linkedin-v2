@@ -219,12 +219,8 @@ module LinkedIn
         path += "/#{id}?projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif urn = options.delete(:urn)
         path += "/#{urn_to_id(urn)}"
-      elsif urn1 = options.delete(:urn1)
-        path += "/#{urn_to_id(urn1)}&projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif vanity_name = options.delete(:vanity_name)
         path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
-      elsif vanity_name1 = options.delete(:vanity_name1)
-        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name1)}&projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       else
         path += "/me"
       end
