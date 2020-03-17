@@ -216,14 +216,15 @@ module LinkedIn
       if email_domain = options.delete(:email_domain)
         path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}"
       elsif id = options.delete(:id)
-        path += "/#{id}"
-      elsif id1 = options.delete(:id1)
-        #path += "/#{id1}?fields=description,alternative_names,specialties,staff_count_range,localized_specialties,id,localized_description,localized_website,logo_v2,website,localized_name,founded_on,groups,organization_status,cover_photo_v2,default_locale,organization_type,industries,name,locations,$urn"
         path += "/#{id1}?projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif urn = options.delete(:urn)
         path += "/#{urn_to_id(urn)}"
+      elsif urn1 = options.delete(:urn1)
+        path += "/#{urn_to_id(urn1)}&projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif vanity_name = options.delete(:vanity_name)
         path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+      elsif vanity_name1 = options.delete(:vanity_name1)
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name1)}&projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       else
         path += "/me"
       end
