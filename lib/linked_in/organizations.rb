@@ -216,7 +216,7 @@ module LinkedIn
       if email_domain = options.delete(:email_domain)
         path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}"
       elsif id = options.delete(:id)
-        path += "/#{id}?fields=#{CGI.escape(ORGANIZATION_FIELDS)}"
+        path += "/#{id}"
       elsif urn = options.delete(:urn)
         path += "/#{urn_to_id(urn)}"
       elsif vanity_name = options.delete(:vanity_name)
