@@ -231,7 +231,7 @@ module LinkedIn
     
     def organization_image_path(id)
       path = '/organizations'
-      path += "/#{id}?projection=(id,description,alternativeNames,coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
+      path += "/#{id}?projection=(id,description,localizedWebsite,alternativeNames,coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
     end
 
     def brand_path(options)
