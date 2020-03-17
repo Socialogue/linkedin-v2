@@ -208,7 +208,7 @@ module LinkedIn
     private ##############################################################
 
 #    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "vanity_name", "website", "localized_name", "founded_on", "cover_photo", "groups", "organization_status", "version_tag", "cover_photo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
-    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2:(original~,cropped~,cropInfo)", "vanity_name", "website", "localized_name", "founded_on", "cover_photo", "groups", "organization_status", "version_tag", "cover_photo_v2:(original~,cropped~,cropInfo)", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
+    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2:(original~,cropped~,cropInfo)", "vanity_name", "website", "localized_name", "founded_on", "cover_photo", "groups", "organization_status", "version_tag", "cover_photo_v2", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
 
     def organization_path(options)
       path = '/organizations'
