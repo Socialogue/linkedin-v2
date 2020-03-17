@@ -208,7 +208,7 @@ module LinkedIn
     private ##############################################################
 
 #    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "vanity_name", "website", "localized_name", "founded_on", "cover_photo", "groups", "organization_status", "version_tag", "cover_photo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
-    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2", "vanity_name", "website", "localized_name", "founded_on", "groups", "organization_status", "version_tag", "cover_photo", "cover_photo_v2", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
+    ORGANIZATION_FIELDS = ["description", "alternativeNames", "specialties", "staffCountRange", "localizedSpecialties", "primaryOrganizationType", "id", "localizedDescription", "localizedWebsite", "vanityName", "website", "localizedName", "foundedOn", "coverPhoto", "groups", "organizationStatus", "versionTag", "defaultLocale", "organizationType", "industries", "name", "locations", "$urn"].join(",")
 
     def organization_path(options)
       path = '/organizations'
@@ -219,7 +219,7 @@ module LinkedIn
         path += "/#{id}"
       elsif id1 = options.delete(:id1)
         #path += "/#{id1}?fields=description,alternative_names,specialties,staff_count_range,localized_specialties,id,localized_description,localized_website,logo_v2,website,localized_name,founded_on,groups,organization_status,cover_photo_v2,default_locale,organization_type,industries,name,locations,$urn"
-        path += "/#{id1}?fields=description,id,localizedWebsite,logoV2:(original~,cropped~,cropInfo),website,localizedName,coverPhotoV2"
+        path += "/#{id1}?projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif urn = options.delete(:urn)
         path += "/#{urn_to_id(urn)}"
       elsif vanity_name = options.delete(:vanity_name)
