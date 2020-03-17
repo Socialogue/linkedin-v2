@@ -231,6 +231,8 @@ module LinkedIn
         path += "/#{urn_to_id(urn)}"
       elsif vanity_name = options.delete(:vanity_name)
         path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+      elsif cmd = options.delete(:cmd)
+        path += "#{cmd}"
       else
         path += "/me"
       end
