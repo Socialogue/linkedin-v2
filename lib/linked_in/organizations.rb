@@ -207,9 +207,11 @@ module LinkedIn
 
     private ##############################################################
 
-#    ORGANIZATION_FIELDS = ["description", "alternative_names", "specialties", "staff_count_range", "localized_specialties", "primary_organization_type", "id", "localized_description", "localized_website", "logo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "vanity_name", "website", "localized_name", "founded_on", "cover_photo", "groups", "organization_status", "version_tag", "cover_photo_v2:(original~:playableStreams,cropped~:playableStreams,cropInfo)", "default_locale", "organization_type", "industries", "name", "locations", "$urn"].join(",")
+    # FIELDS specified in the URL are camel case while in code, they are separated by _
     ORGANIZATION_FIELDS = ["description", "alternativeNames", "specialties", "staffCountRange", "localizedSpecialties", "primaryOrganizationType", "id", "localizedDescription", "localizedWebsite", "vanityName", "website", "localizedName", "foundedOn", "coverPhoto", "groups", "organizationStatus", "versionTag", "defaultLocale", "organizationType", "industries", "name", "locations", "$urn"].join(",")
 
+    # ID, IDS, URN versions should be for admins only...exception if not admin
+    # EMAIL_DOMAIN, VANITY_NAME versions can be for non-admins
     def organization_path(options)
       path = '/organizations'
 
@@ -252,6 +254,8 @@ module LinkedIn
         path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
       elsif parent_urn = options.delete(:parent_urn)
         path = "/organizations?q=parentOrganization&parent=#{CGI.escape(parent_urn)}"
+      elsif cmd = options.delete(:cmd)
+        path += "#{cmd}"
       else
         path += "/me"
       end
