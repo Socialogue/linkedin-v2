@@ -210,21 +210,22 @@ module LinkedIn
     # FIELDS specified in the URL are camel case while in code, they are separated by _
     ORGANIZATION_FIELDS = ["description", "alternativeNames", "specialties", "staffCountRange", "localizedSpecialties", "primaryOrganizationType", "id", "localizedDescription", "localizedWebsite", "vanityName", "website", "localizedName", "foundedOn", "coverPhoto", "groups", "organizationStatus", "versionTag", "defaultLocale", "organizationType", "industries", "name", "locations", "$urn"].join(",")
 
-    # ID, IDS, URN versions should be for admins only...exception if not admin
-    # EMAIL_DOMAIN, VANITY_NAME versions can be for non-admins
+    # ID, URN versions requires ADMINS only, returns ONE entity
+    # VANITY_NAME for EVERYONE, returns ONE entity
+    # EMAIL_DOMAIN for EVERYONE, returns MULTIPLE entities
     def organization_path(options)
       path = '/organizations'
 
       if email_domain = options.delete(:email_domain)
         path += "?q=emailDomain&emailDomain=#{CGI.escape(email_domain)}"
+      elsif vanity_name = options.delete(:vanity_name)
+        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
       elsif id = options.delete(:id)
         path += "/#{id}?projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif ids = options.delete(:ids)
         path += "?ids=List(#{ids})&projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif urn = options.delete(:urn)
-        path += "/#{urn_to_id(urn)}"
-      elsif vanity_name = options.delete(:vanity_name)
-        path += "?q=vanityName&vanityName=#{CGI.escape(vanity_name)}"
+        path += "/#{urn_to_id(urn)}?projection=(#{ORGANIZATION_FIELDS},coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
       elsif cmd = options.delete(:cmd)
         path += "#{cmd}"
       else
@@ -237,6 +238,9 @@ module LinkedIn
       path += "/#{id}?projection=(id,description,localizedWebsite,alternativeNames,coverPhotoV2(original~:playableStreams,cropped~:playableStreams,cropInfo),logoV2(original~:playableStreams,cropped~:playableStreams,cropInfo))"
     end
 
+    # ID requires ADMINS only, returns ONE entity
+    # VANITY_NAME for EVERYONE, returns ONE entity
+    # PARENT_URN for EVERYONE, returns MULTIPLE entities???
     def brand_path(options)
       path = '/organizationBrands'
 
