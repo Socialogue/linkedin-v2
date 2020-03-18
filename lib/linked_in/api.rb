@@ -44,14 +44,12 @@ module LinkedIn
 
     def_delegators :@organizations, :organization,
                                     :brand,
-                                    :brand_image_urls,
                                     :organization_acls,
                                     :organization_search,
                                     :organization_page_statistics,
                                     :organization_follower_statistics,
                                     :organization_share_statistics,
-                                    :organization_follower_count,
-                                    :organization_image_urls
+                                    :organization_follower_count
 
     def_delegators :@communications, :send_message
 
