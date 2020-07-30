@@ -32,7 +32,13 @@ module LinkedIn
     #
     def shares(options = {})
       urn = options.delete(:urn)
+      shares_per_owner = options.delete(:shares_per_owner)
+      start_page = options.delete(:start_page)
+      count_per_page = options.delete(:count_per_page)
       path = "/shares?q=owners&owners=#{urn}"
+      path += "&sharesPerOwner=#{shares_per_owner || 1000}"
+      path += "&count=#{count_per_page || 50}"
+      path += "&start=#{start_page}" if start_page
       get(path, options)
     end
 
